@@ -1,0 +1,9 @@
+- name: Copy custom CA pem files if any
+  copy: src={{ item }} dest=/etc/pki/ca-trust/source/anchors/
+  with_fileglob:
+    - certs/*.pem
+  register: ca
+
+- name: Update CA databases
+  shell: update-ca-trust extract
+  when: ca.changed

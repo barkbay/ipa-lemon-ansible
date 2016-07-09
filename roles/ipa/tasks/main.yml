@@ -1,0 +1,19 @@
+- name: Install FreeIPA
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - openldap-clients
+    - ipa-server
+
+- name: Copy FreeIPA PEM files
+  copy: src={{ item }} dest=/var/lib/ipa
+  with_items:
+    - certs/root.pem
+    - certs/freeipa.pem
+
+- name: Setup free ipa
+  script: scripts/setup-ipa.sh
+  environment: "{{ldap}}"
+  args:
+    creates : /var/lib/ipa/sysrestore/sysrestore.state

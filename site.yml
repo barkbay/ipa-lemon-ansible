@@ -1,0 +1,14 @@
+---
+# This playbook deploys a simple standalone Tomcat 7 server.
+
+- hosts: all
+  remote_user: root
+  roles:
+    - ca
+
+- hosts: ldap.example2.com
+  remote_user: root
+  vars_files:
+    - secrets.yml
+  roles:
+    - ipa
