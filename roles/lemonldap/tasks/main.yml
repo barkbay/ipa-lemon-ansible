@@ -25,3 +25,8 @@
   with_items:
     - lemonldap-ng
     - lemonldap-ng-fr-doc
+
+- name: Install configuration files
+  template: src={{ item }} dest=/etc/lemonldap-ng/
+  with_fileglob:
+    - ../templates/etc/lemonldap-ng/*
