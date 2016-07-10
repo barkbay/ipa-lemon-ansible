@@ -132,7 +132,7 @@
   },
   "samlIDPMetaDataExportedAttributes": null,
   "oidcServiceMetaDataTokenURI": "token",
-  "ldapBase": "dc=example,dc=com",
+  "ldapBase": "dc=example2,dc=com",
   "issuerDBOpenIDConnectPath": "^/oauth2/",
   "demoExportedVars": {
     "uid": "uid",
@@ -269,5 +269,5 @@
   "portalForceAuthn": 0,
   "cfgAuthor": "{{ sso.admin }}",
   "securedCookie": 0,
-  "managerDn": "uid=admin,cn=users,cn=accounts,dc=example,dc=com"
+  "managerDn": "uid=admin,cn=users,cn=accounts,dc=example2,dc=com"
 }
