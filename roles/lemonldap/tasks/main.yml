@@ -1,0 +1,27 @@
+- name: download OW2 key
+  get_url: url=http://lemonldap-ng.org/_media/rpm-gpg-key-ow2 dest=/root/rpm-gpg-key-ow2 sha256sum=b3170d6400502baed0b3b6288d4e250da60999b0435709be50ebd380a9e4bca9
+  register: ow2
+
+- name: trust OW2 key for rpms
+  shell: rpm --import /root/rpm-gpg-key-ow2
+  when: ow2.changed
+
+- name: Copy LemonLDAP rpm repository
+  copy: src=rpm/lemonldap-ng.repo dest=/etc/yum.repos.d/lemonldap-ng.repo
+
+- name: Install some dependancies
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - openldap-clients
+    - epel-release
+    - mod_ssl
+
+- name: Install LemonLDAP
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - lemonldap-ng
+    - lemonldap-ng-fr-doc

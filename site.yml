@@ -12,3 +12,10 @@
     - secrets.yml
   roles:
     - ipa
+
+- hosts: sso.example2.com
+  remote_user: root
+  vars_files:
+    - secrets.yml
+  roles:
+    - lemonldap
