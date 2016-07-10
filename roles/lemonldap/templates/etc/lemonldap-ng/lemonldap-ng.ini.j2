@@ -61,7 +61,7 @@
 ;         You have to set 'proxy' parameter. Example:
 ;
 ;           type         = SOAP
-;           proxy        = https://auth.example.com/index.pl/config
+;           proxy        = https://{{ lemonldap_auth_url }}/index.pl/config
 ;           proxyOptions = { timeout => 5 }
 ;           User         = lemonldap
 ;           Password     = mypassword
@@ -143,7 +143,7 @@ localStorageOptions={                             \
 ; error(language, code)
 ;Soap = 1
 ; Note that getAttibutes() will be activated but on a different URI
-; (http://auth.example.com/index.pl/sessions)
+; (http://{{ lemonldap_auth_url }}/index.pl/sessions)
 ; You can also restrict attributes and macros exported by getAttributes
 ;exportedAttr = uid mail
 
@@ -200,7 +200,7 @@ localStorageOptions={                             \
 ; Use it to be able to notify messages during authentication
 ;notification = 1
 ; Note that the SOAP function newNotification will be activated on
-; http://auth.example.com/index.pl/notification
+; http://{{ lemonldap_auth_url }}/index.pl/notification
 ; If you want to hide this, just protect "/index.pl/notification" in
 ; your Apache configuration file
 ; XSS protection bypass
