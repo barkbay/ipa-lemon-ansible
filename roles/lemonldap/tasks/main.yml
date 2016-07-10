@@ -26,7 +26,12 @@
     - lemonldap-ng
     - lemonldap-ng-fr-doc
 
-- name: Install configuration files
+- name: Install configuration files (1/2)
   template: src={{ item }} dest=/etc/lemonldap-ng/
   with_fileglob:
     - ../templates/etc/lemonldap-ng/*
+
+- name: Install configuration files (2/2)
+  template: src={{ item }} dest=/var/lib/lemonldap-ng/conf/
+  with_fileglob:
+    - ../templates/var/lib/lemonldap-ng/conf/*
