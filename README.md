@@ -27,10 +27,13 @@ sso:
   lemonldap_auth_hostname: sso.example.com
   lemonldap_manager_hostname: manager.example.com
   lemonldap_reload_hostname: reload.example.com
+  admin: admin
 
 ldap:
   ldap_key_password: <ldap_certificate_key_password>
   ldap_admin_password: <the ldap admin password>
   ldap_domain: <the ldap domain, e.g. example.com>
+  fqdn_hostname: <the fqdn hostname, e.g. ldap.example2.com>
+
 
 ```
