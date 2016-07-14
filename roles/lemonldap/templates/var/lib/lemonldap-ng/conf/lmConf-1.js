@@ -89,7 +89,7 @@
   "portalCheckLogins": 1,
   "localSessionStorage": "Cache::FileCache",
   "vhostOptions": {
-    "test2.example.com": {},
+    "gogs.{{ ldap.ldap_domain }}": {},
     "{{ sso.lemonldap_manager_hostname }}": {},
     "test1.example.com": {}
   },
@@ -126,8 +126,8 @@
       "Auth-User": "$uid"
     },
     "{{ sso.lemonldap_manager_hostname }}": {},
-    "test1.example.com": {
-      "Auth-User": "$uid"
+    "gogs.{{ ldap.ldap_domain }}": {
+      "X-Forwarded-User": "$uid"
     }
   },
   "samlIDPMetaDataExportedAttributes": null,
@@ -238,9 +238,9 @@
       "default": "$uid eq \"{{ sso.admin }}\"",
       "(?#Notifications)/notifications": "$uid eq \"{{ sso.admin }}\""
     },
-    "test1.example.com": {
+    "gogs.{{ ldap.ldap_domain }}": {
       "default": "accept",
-      "^/logout": "logout_sso"
+      "^/user/logout": "logout_sso"
     }
   },
   "oidcOPMetaDataJWKS": null,
