@@ -43,3 +43,26 @@ ldap:
 
 
 ```
+
+Gogs example
+-------------
+
+There is a Gogs SSO example, if you want to enable it :
+
+Add the internal Gogs hostname in the secrets :
+
+```
+sso:
+  gogs_internal_name: gogs.int.example.com:3000
+```
+
+and add this to your Gogs configuration :
+
+```
+[service]
+ENABLE_REVERSE_PROXY_AUTHENTICATION = true
+ENABLE_REVERSE_PROXY_AUTO_REGISTRATION = true
+
+[security]
+REVERSE_PROXY_AUTHENTICATION_USER = X-Forwarded-User
+```
