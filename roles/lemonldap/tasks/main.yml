@@ -61,6 +61,11 @@
     - etc/httpd/conf.d/ssl.conf
   register: c4
 
+- name: Install Gogs reverse proxy (optional)
+  template: src=etc/httpd/conf.d/gogs.conf dest=/etc/httpd/conf.d/gogs.conf
+  when: sso.gogs_internal_name is defined
+  register: c5
+
 - name: Restart apache
   service: name=httpd state=restarted enabled=yes
-  when: (c1.changed) or (c2.changed) or (c3.changed) or (c4.changed)
+  when: (c1.changed) or (c2.changed) or (c3.changed) or (c4.changed) or (c5.changed)
