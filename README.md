@@ -12,6 +12,12 @@ These roles allow you to setup a Single Sign On infrastructure. FreeIPA is used 
 Requirements
 ------------
 
+If you are using SELinux allow Apache to connect to an LDAP server :
+
+```
+setsebool -P httpd_can_connect_ldap 1
+```
+
 Some variables must be stored in a vault called secrets.yml :
 
 ```
