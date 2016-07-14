@@ -74,7 +74,7 @@
   "exportedVars": {
     "UA": "HTTP_USER_AGENT"
   },
-  "domain": "example.com",
+  "domain": "{{ ldap.ldap_domain }}",
   "mailUrl": "https://{{ sso.lemonldap_auth_hostname }}/mail.pl",
   "oidcServiceMetaDataAuthnContext": {},
   "trustedProxies": "",
@@ -115,7 +115,7 @@
   "oidcServiceMetaDataRegistrationURI": "register",
   "authChoiceModules": {},
   "groups": {},
-  "portal": "https://{{ sso.lemonldap_auth_hostname }}:8443",
+  "portal": "https://{{ sso.lemonldap_auth_hostname }}",
   "notificationStorage": "File",
   "logoutServices": {},
   "userDB": "LDAP",
