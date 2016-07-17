@@ -40,7 +40,7 @@
     - ../templates/etc/lemonldap-ng/*
   notify:
     - restart httpd
-  tags: sso,sso-config
+  tags: [ 'sso', 'sso-config' ]
 
 - name: Install LemonLDAP configuration files
   template: src={{ item }} dest=/var/lib/lemonldap-ng/conf/
@@ -48,14 +48,14 @@
     - ../templates/var/lib/lemonldap-ng/conf/*
   notify:
     - restart httpd
-  tags: sso,sso-config
+  tags: [ 'sso', 'sso-config' ]
 
 - name: Install SSO TLS certificate
   copy: content="{{ item.value }}" dest=/etc/ssl/httpd/{{ item.key }} owner=apache group=apache mode=0600
   with_dict: "{{ sso.certs_and_keys }}"
   notify:
     - restart httpd
-  tags: sso,sso-config
+  tags: [ 'sso', 'sso-config' ]
 
 - name: Update SSL configuration file
   copy: src={{ item }} dest=/etc/httpd/conf.d/ owner=apache group=apache mode=0644
@@ -63,11 +63,11 @@
     - etc/httpd/conf.d/ssl.conf
   notify:
     - restart httpd
-  tags: sso,sso-config
+  tags: [ 'sso', 'sso-config' ]
 
 - name: Install Gogs reverse proxy (optional)
   template: src=etc/httpd/conf.d/gogs.conf dest=/etc/httpd/conf.d/gogs.conf
   when: sso.gogs_internal_name is defined
   notify:
     - restart httpd
-  tags: sso,sso-config
+  tags: [ 'sso', 'sso-config' ]
