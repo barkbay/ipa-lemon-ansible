@@ -12,7 +12,7 @@ These roles allow you to setup a Single Sign On infrastructure. FreeIPA is used 
 Requirements
 ------------
 
-If you are using SELinux allow Apache to connect to an LDAP server :
+If SELinux is enabled you have to allow Apache to connect to an LDAP server :
 
 ```
 setsebool -P httpd_can_connect_ldap 1
@@ -34,6 +34,46 @@ sso:
   lemonldap_manager_hostname: manager.example.com
   lemonldap_reload_hostname: reload.example.com
   admin: admin
+  certs_and_keys:
+    sso.cert.pem: |
+      -----BEGIN CERTIFICATE-----
+      MIIFETCCAvmgAwIBAgICEAEwDQYJKoZIhvcNAQELBQAwUjELMAkGA1UEBhMCRlIx
+      DjAMBgNVBAgMBVBhcmlzMRIwEAYDVQQKDAlCaWRvdSBMdGQxHzAdBgNVBAMMFkJp
+      [...]
+      UJGVS+0=
+      -----END CERTIFICATE-----
+    sso.key-nopass.pem: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpQIBAAKCAQEA83zmzS/5aQkzrq6lx+uXiVQcbIbtNNb0lWiGZ3QNaEyi8KkX
+      [...]
+      YMwfTJ/8WT8yme/YYm1HWUr6lRc8LNidOWEKkSOZ6iY4m1IEz9R+yro=
+      -----END RSA PRIVATE KEY-----
+     sso-manager.cert.pem: |
+      -----BEGIN CERTIFICATE-----
+      MIIFETCCAvmgAwIBAgICEAEwDQYJKoZIhvcNAQELBQAwUjELMAkGA1UEBhMCRlIx
+      DjAMBgNVBAgMBVBhcmlzMRIwEAYDVQQKDAlCaWRvdSBMdGQxHzAdBgNVBAMMFkJp
+      [...]
+      UJGVS+0=
+      -----END CERTIFICATE-----
+    sso-manager.key-nopass.pem: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpQIBAAKCAQEA83zmzS/5aQkzrq6lx+uXiVQcbIbtNNb0lWiGZ3QNaEyi8KkX
+      [...]
+      YMwfTJ/8WT8yme/YYm1HWUr6lRc8LNidOWEKkSOZ6iY4m1IEz9R+yro=
+      -----END RSA PRIVATE KEY-----
+    sso-reload.cert.pem: |
+      -----BEGIN CERTIFICATE-----
+      MIIFETCCAvmgAwIBAgICEAEwDQYJKoZIhvcNAQELBQAwUjELMAkGA1UEBhMCRlIx
+      DjAMBgNVBAgMBVBhcmlzMRIwEAYDVQQKDAlCaWRvdSBMdGQxHzAdBgNVBAMMFkJp
+      [...]
+      UJGVS+0=
+      -----END CERTIFICATE-----
+     sso-reload.key-nopass.pem: |
+       -----BEGIN RSA PRIVATE KEY-----
+       MIIEpQIBAAKCAQEA83zmzS/5aQkzrq6lx+uXiVQcbIbtNNb0lWiGZ3QNaEyi8KkX
+       [...]
+       YMwfTJ/8WT8yme/YYm1HWUr6lRc8LNidOWEKkSOZ6iY4m1IEz9R+yro=
+       -----END RSA PRIVATE KEY-----
 
 ldap:
   ldap_key_password: <ldap_certificate_key_password>

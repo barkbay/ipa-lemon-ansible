@@ -22,6 +22,7 @@
   template: src={{ item }} dest=/etc/openldap/
   with_fileglob:
     - ../templates/etc/openldap/*
+  tags: sso
 
 - name: Install LemonLDAP
   yum:
@@ -31,41 +32,42 @@
     - lemonldap-ng
     - lemonldap-ng-fr-doc
     - perl-LWP-Protocol-https
+  tags: sso
 
-- name: Install configuration files (1/3)
+- name: Install configuration files
   template: src={{ item }} dest=/etc/lemonldap-ng/
   with_fileglob:
     - ../templates/etc/lemonldap-ng/*
-  register: c1
+  notify:
+    - restart httpd
+  tags: sso,sso-config
 
-- name: Install LemonLDAP configuration files (2/3)
+- name: Install LemonLDAP configuration files
   template: src={{ item }} dest=/var/lib/lemonldap-ng/conf/
   with_fileglob:
     - ../templates/var/lib/lemonldap-ng/conf/*
-  register: c2
+  notify:
+    - restart httpd
+  tags: sso,sso-config
 
-- name: Install TLS certificates and keys (3/3)
-  copy: src={{ item }} dest=/etc/ssl/httpd/ owner=apache group=apache mode=0640
-  with_items:
-    - certs/sso.cert.pem
-    - certs/sso.key-nopass.pem
-    - certs/sso-manager.cert.pem
-    - certs/sso-manager.key-nopass.pem
-    - certs/sso-reload.cert.pem
-    - certs/sso-reload.key-nopass.pem
-  register: c3
+- name: Install SSO TLS certificate
+  copy: content="{{ item.value }}" dest=/etc/ssl/httpd/{{ item.key }} owner=apache group=apache mode=0600
+  with_dict: "{{ sso.certs_and_keys }}"
+  notify:
+    - restart httpd
+  tags: sso,sso-config
 
 - name: Update SSL configuration file
   copy: src={{ item }} dest=/etc/httpd/conf.d/ owner=apache group=apache mode=0644
   with_items:
     - etc/httpd/conf.d/ssl.conf
-  register: c4
+  notify:
+    - restart httpd
+  tags: sso,sso-config
 
 - name: Install Gogs reverse proxy (optional)
   template: src=etc/httpd/conf.d/gogs.conf dest=/etc/httpd/conf.d/gogs.conf
   when: sso.gogs_internal_name is defined
-  register: c5
-
-- name: Restart apache
-  service: name=httpd state=restarted enabled=yes
-  when: (c1.changed) or (c2.changed) or (c3.changed) or (c4.changed) or (c5.changed)
+  notify:
+    - restart httpd
+  tags: sso,sso-config
