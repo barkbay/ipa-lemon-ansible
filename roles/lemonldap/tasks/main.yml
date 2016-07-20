@@ -26,7 +26,7 @@
   template: src={{ item }} dest=/etc/openldap/
   with_fileglob:
     - ../templates/etc/openldap/*
-  tags: sso
+  tags: [ 'ldap', 'ldap-config' ]
 
 - name: Install LemonLDAP
   yum:
