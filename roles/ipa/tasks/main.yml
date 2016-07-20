@@ -10,6 +10,18 @@
   copy: content="{{ item.value }}" dest=/var/lib/ipa/{{ item.key }} owner=root group=root mode=600
   with_dict: "{{ ldap.certs_and_keys }}"
   tags: [ 'ldap', 'ldap-config' ]
+  register: ca
+
+- name: Check if FreeIPA is already installed
+  stat: path=/var/lib/ipa/sysrestore/sysrestore.state
+  register: installed
+  tags: [ 'ldap', 'ldap-config' ]
+
+- name: Update FreeIPA certs if FreeIPA is already installed
+  shell: ipa-server-certinstall -w -d /var/lib/ipa/freeipa.pem --pin={{ ldap.ldap_key_password }} -p {{ ldap.ldap_admin_password }}
+  tags: [ 'ldap', 'ldap-config' ]
+  when: ca.changed and installed.stat.exists == True
+
 
 - name: Setup FreeIPA
   script: scripts/setup-ipa.sh
