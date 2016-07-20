@@ -22,9 +22,15 @@
   tags: [ 'ldap', 'ldap-config' ]
   when: ca.changed and installed.stat.exists == True
 
-
 - name: Setup FreeIPA
   script: scripts/setup-ipa.sh
   environment: "{{ldap}}"
   args:
     creates : /var/lib/ipa/sysrestore/sysrestore.state
+
+- name: Setup FreeIPA backup
+  cron: >
+    name="Backup freeipa data"
+    minute="0" hour="12,16"
+    job="ipa-backup --data --online --log-file=/var/log/freeipa-backup.log > /dev/null"
+  tags: [ 'ldap', 'ldap-backup' ]
