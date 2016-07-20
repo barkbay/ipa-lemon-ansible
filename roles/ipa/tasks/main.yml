@@ -6,11 +6,10 @@
     - openldap-clients
     - ipa-server
 
-- name: Copy FreeIPA PEM files
-  copy: src={{ item }} dest=/var/lib/ipa owner=root group=root mode=600
-  with_items:
-    - certs/root.pem
-    - certs/freeipa.pem
+- name: Copy FreeIPA PEM and CA files
+  copy: content="{{ item.value }}" dest=/var/lib/ipa/{{ item.key }} owner=root group=root mode=600
+  with_dict: "{{ ldap.certs_and_keys }}"
+  tags: [ 'ldap', 'ldap-config' ]
 
 - name: Setup FreeIPA
   script: scripts/setup-ipa.sh

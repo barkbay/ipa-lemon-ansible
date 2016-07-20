@@ -1,4 +1,4 @@
-2 files must be here :
+2 files must be stored in the secrets.yml vault :
 
 1. root.pem
 2. freeipa.pem
@@ -16,4 +16,4 @@ where :
 * intermediate.pem : Intermediate certificate
 * root.pem : Root certificate
 
-WARNING : freeipa.example.com.key.pem and freeipa.pem contains the private key, DO NOT COMMIT OR SHARE THESE FILES !
+See the README.md at the root of the repository for an example.

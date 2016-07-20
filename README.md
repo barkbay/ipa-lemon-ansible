@@ -80,8 +80,29 @@ ldap:
   ldap_admin_password: <the ldap admin password>
   ldap_domain: <the ldap domain, e.g. example.com>
   fqdn_hostname: <the fqdn hostname, e.g. ldap.example2.com>
+  certs_and_keys:
+  root.pem: |
+    -----BEGIN CERTIFICATE-----
+    MIIFSDCCAzCgAwIBAgIJAOsi5j3LFDazMA0GCSqGSIb3DQEBCwUAMDExCzAJBgNV
+    BAYTAkZSMQ4wDAYDVQQIDAVQYXJpczESMBAGA1UECgwJQmlkb3UgTHRkMB4XDTE2
+    MDcwOTExMzIxNloXDTM2MDcwNDExMzIxNlowMTELMAkGA1UEBhMCRlIxDjAMBgNV
+    [....]
+  freeipa.pem: |
+    -----BEGIN RSA PRIVATE KEY-----
+    Proc-Type: 4,ENCRYPTED
+    DEK-Info: AES-256-CBC,C2D37634C41CF435BE051D1692B521FE
 
+    iw/BwWD9BCeBZku+miOlJbEzcQPOAzZhKF+gw/t1WezQVKZ3B2qe0k9AGTI2hq8t
+    69+7zK+ZVH9/k6ejkwAy8mksC6DP+N2E7lSuIlhnzdUDLhtlCxKBvd911xczPkdc
+    [...]
+    uSZ6FrGLJq9WalU/zU6B1cu2yAjAcr/63g4jHPxoH8uSy6mQGLplAOx67ujs8I70
+    uuOpBwBcJ4vNU2YLuPpYu1mQNMvdas0sjimdvCYtrJDNm7+5i279OWVIBWZDDHK0
+    -----END RSA PRIVATE KEY-----
+    -----BEGIN CERTIFICATE-----
+    MIIFEjCCAvqgAwIBAgICEAAwDQYJKoZIhvcNAQELBQAwUjELMAkGA1UEBhMCRlIx
+    DjAMBgNVBAgMBVBhcmlzMRIwEAYDVQQKDAlCaWRvdSBMdGQxHzAdBgNVBAMMFkJp
 
+    -----END CERTIFICATE-----
 ```
 
 Gogs example
